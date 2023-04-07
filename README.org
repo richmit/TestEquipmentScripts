@@ -4,4 +4,4 @@
 
 Here you will find a collection of scripts I use with the equipment on [[https://www.mitchr.me/SS/eeBench/index.html][my electronics workbench]].
 
-Many of these scripts use [[https://richmit.github.io/mrSCPI/][=mrSCPI=]].
+Many of these scripts use [[https://richmit.github.io/mrSCPI/][mrSCPI]].
