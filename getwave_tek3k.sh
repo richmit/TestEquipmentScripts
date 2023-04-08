@@ -63,10 +63,7 @@ fi
 CHAN=${1:-ch1}  
 FPFX=${2:-`date +%Y%m%d%H%M%S`}    
 
-#---------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Pull waveform CSV over HTTP
-
-echo "getwave_tek3k.sh: Attempting to pull waveform from scope"
+echo "getwave_tek3k.sh: Attempting to pull waveform from scope over HTTP"
 curl -X POST --data "command=select:${CHAN} on&command=save:waveform:fileformat spreadsheet&wfmsend=Get" `teAlias.rb @tek3kw`'/getwfm.isf' | tr -d '\015' | sed -e '1i t,v' > ${FPFX}_${CHAN}_waveform.csv
 
 if [ -s ${FPFX}_${CHAN}_waveform.csv ]; then
