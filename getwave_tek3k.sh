@@ -41,7 +41,7 @@ if [ "$1" = "-h" -o "$1" = "--help" -o "$1" = "-help" ]; then
   echo "                                                                     "
   echo "The filenames are:                                                   "
   echo "                                                                     "
-  echo "  - PREFIX_CHANNEL_waveform.dat .... CSV of waveform                 "
+  echo "  - PREFIX_CHANNEL_waveform.csv .... CSV of waveform                 "
   echo "  - PREFIX_CHANNEL_waveform.gplt ... A GNUPlot file                  "
   echo "                                                                     "
   echo "Valid channel names are CH1, CH2, CH3, CH4, MATH, MATH1,             "
@@ -62,6 +62,9 @@ fi
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------
 CHAN=${1:-ch1}  
 FPFX=${2:-`date +%Y%m%d%H%M%S`}    
+
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Pull waveform CSV over HTTP
 
 echo "getwave_tek3k.sh: Attempting to pull waveform from scope"
 curl -X POST --data "command=select:${CHAN} on&command=save:waveform:fileformat spreadsheet&wfmsend=Get" `teAlias.rb @tek3kw`'/getwfm.isf' | tr -d '\015' | sed -e '1i t,v' > ${FPFX}_${CHAN}_waveform.csv
