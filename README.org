@@ -9,18 +9,18 @@ Many of these scripts use [[https://richmit.github.io/mrSCPI/][mrSCPI]].
  - =dhoRAW2CSV.rb=, =sdsRAW2CSV.rb=, =tdsRAW2CSV.rb= ::
    Convert Oscilloscope raw waveform data into CSV.  Supported scopes:
    - Rigol DHO2000/4000 series
-   - Siglent SDS2000X+ series scopes, and
+   - Siglent SDS2000X+ series scopes
    - Tektronix TDS 2000 & 3000B series scopes
  - =readDHO4k.m= ::
    Matlab/Octave function to load raw waveform files from Rigol DHO2000/4000 series scopes.
  - =screenshot_dho4k.rb=, =screenshot_sig2k.rb=, =screenshot_tek3k.rb=, & ==screenshot_wf.sh= ::
    Grab Oscilloscope screenshots.  Supported scopes:
    - Rigol DHO2000/4000 series
-   - Siglent SDS2000X+ series scopes, and
+   - Siglent SDS2000X+ series scopes
    - Tektronix TDS 2000 & 3000B series scopes
    - Digilent Analog Discovery (all models).
  - =getwave_dho4k.rb=, =getwave_sig2k.rb=, =getwave_sig2k.sh=, =getwave_tek2k.sh=, =getwave_tek3k-serial.sh=, =getwave_tek3k.sh= ::
    Pull waveform data from Oscilloscopes.  Supported scopes:
    - Rigol DHO2000/4000 series
-   - Siglent SDS2000X+ series scopes, and
+   - Siglent SDS2000X+ series scopes
    - Tektronix TDS 2000 & 3000B series scopes
