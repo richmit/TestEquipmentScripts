@@ -13,7 +13,7 @@ Many of these scripts use [[https://richmit.github.io/mrSCPI/][mrSCPI]].
    - Tektronix TDS 2000 & 3000B series scopes
  - =readDHO4k.m= ::
    Matlab/Octave function to load raw waveform files from Rigol DHO2000/4000 series scopes.
- - =screenshot_dho4k.rb=, =screenshot_sig2k.rb=, =screenshot_tek3k.rb=, & ==screenshot_wf.sh= ::
+ - =screenshot_dho4k.rb=, =screenshot_sig2k.rb=, =screenshot_tek3k.rb=, & =screenshot_wf.sh= ::
    Grab Oscilloscope screenshots.  Supported scopes:
    - Rigol DHO2000/4000 series
    - Siglent SDS2000X+ series scopes
