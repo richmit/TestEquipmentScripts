@@ -21,7 +21,7 @@
 %% File      readDHO4k.m          
 %% Author    Mitch Richling http://www.mitchr.me/
 %% Std       octave_7 matlab_2022b           
-%% See       getwave_dho4k.rb dhoRAW2CSV.rb
+%% See       getwave_dho4k.rb raw2csv_dho.rb
 %% Usage 
 %%  Description
 %%    Read Rigol DHO2000/4000 waveform data into Matlab/Octave
@@ -39,7 +39,7 @@
 %%  Details
 %%    Only tested on DHO4000 series, but should work on DHO2000 as well. Tested on both Matlab & Octave. This function
 %%    supports binary waveform files -- both BYTE & WORD.  ASCII files are not supported -- use dlmread for that. I
-%%    normally use this function with files generated via the getwave_dho4k.rb script. The dhoRAW2CSV.rb script can
+%%    normally use this function with files generated via the getwave_dho4k.rb script. The raw2csv_dhoU.rb script can
 %%    convert the kinds of data this function reads to CSV; however, the CSV file will be much larger than the RAW file
 %%    (11GB vs 1GB).  In addition, the time required to produce the CSV and then load it into Matlab/Octave is an order
 %%    of magnitude greater. This function can read a 500M point file, with 16-bits per point, in about 5 seconds on my

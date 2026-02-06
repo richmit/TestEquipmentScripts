@@ -74,7 +74,7 @@ mrSCPI.rb --url @tek2k                                                          
 if [ -s ${FPFX}_${CHAN}_waveform.pre -a -s ${FPFX}_${CHAN}_waveform.dat ]; then
 
   echo "getwave_tek2k.sh: Converting raw scope data to CSV"
-  tdsRAW2CSV.rb -v 7 -p ${FPFX}_${CHAN}_waveform.pre ${FPFX}_${CHAN}_waveform.dat -o ${FPFX}_${CHAN}_waveform.csv
+  raw2csv_tds.rb -v 7 -p ${FPFX}_${CHAN}_waveform.pre ${FPFX}_${CHAN}_waveform.dat -o ${FPFX}_${CHAN}_waveform.csv
   
   printf "set tics nomirror\nset tics out\nunset key\nset xzeroaxis\nset yzeroaxis\nset term dumb\nset datafile separator ','\nplot '${FPFX}_${CHAN}_waveform.csv' using 1:2 with points\npause mouse\n" | gnuplot
 

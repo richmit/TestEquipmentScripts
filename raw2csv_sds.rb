@@ -2,7 +2,7 @@
 # -*- Mode:ruby; Coding:us-ascii; fill-column:158 -*-
 #########################################################################################################################################################.H.S.##
 ##
-# @file      sdsRAW2CSV.rb
+# @file      raw2csv_sds.rb
 # @author    Mitch Richling http://www.mitchr.me/
 # @brief     Convert RAW preamble & waveform data from Siglent SDS2000X+ series oscilloscopes into a CSV files.@EOL
 # @std       Ruby 3
@@ -52,7 +52,7 @@ opts = OptionParser.new do |opts|
   opts.banner = ""
   opts.separator("Transform Siglent waveform data into a CSV file                      ")
   opts.separator("                                                                     ")
-  opts.separator("Usage: sdsRAW2CSV.rb [options] -p preamble_file data_file...         ")
+  opts.separator("Usage: raw2csv_sds.rb [options] -p preamble_file data_file...         ")
   opts.separator("                                                                     ")
   opts.separator(" The script requires two kinds of files as input:                    ")
   opts.separator("  - Waveform data .. The result of :WAVeform:DATA? commands          ")
@@ -209,13 +209,13 @@ used_preamble_keys     = ['vert_gain',
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------
 if verbose >= 3 then
-  STDERR.puts("sdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - Reading preamble data file")
+  STDERR.puts("raw2csv_sds: #{Time.new.inspect.ljust(35, ' ')} - Reading preamble data file")
 end
 preaRawData=File.read(preFileN, :encoding=>'binary')
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------
 if verbose >= 3 then
-  STDERR.puts("sdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - Parse & extract preamble data")
+  STDERR.puts("raw2csv_sds: #{Time.new.inspect.ljust(35, ' ')} - Parse & extract preamble data")
 end
 
 preamble_data_array = preaRawData.unpack(preamble_unpack_code)
@@ -225,7 +225,7 @@ preamble_data_hash  = preamble_desc.transpose.first.zip(preamble_data_array).to_
 if verbose >= 4 then  
   preamble_desc.each do |pname, ptype|
     if ((verbose >= 6) || (used_preamble_keys.member?(pname))) then
-      STDERR.printf("sdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - %25s : %s\n", pname, preamble_data_hash[pname].inspect)
+      STDERR.printf("raw2csv_sds: #{Time.new.inspect.ljust(35, ' ')} - %25s : %s\n", pname, preamble_data_hash[pname].inspect)
     end
   end
 end
@@ -259,13 +259,13 @@ sampleCount = nil
 vData = Array.new
 dataFileNames.each do |curDataFileName|
   if verbose >= 3 then
-    STDERR.puts("sdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - Reading waveform data: #{curDataFileName}")
+    STDERR.puts("raw2csv_sds: #{Time.new.inspect.ljust(35, ' ')} - Reading waveform data: #{curDataFileName}")
   end
   File.open(curDataFileName, 'rb') do |curDataFileD|
     waveRawData = curDataFileD.read;
     
     if verbose >= 3 then
-      STDERR.puts("sdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - Transforming Y data")
+      STDERR.puts("raw2csv_sds: #{Time.new.inspect.ljust(35, ' ')} - Transforming Y data")
     end
 
     samples = waveRawData.unpack(wave_unpack_code)[1..-3]
@@ -293,7 +293,7 @@ tData = (0..(sampleCount-1)).map { |i| -hoff-(hdiv*hori_num/2)+i*hint; }
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------
 if verbose >= 3 then
-  STDERR.puts("sdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - Printing Data")
+  STDERR.puts("raw2csv_sds: #{Time.new.inspect.ljust(35, ' ')} - Printing Data")
 end
 
 if outTitle then
@@ -317,7 +317,7 @@ tData.each_with_index do |tVal, tIdx|
     curTime = Time.now.localtime;
     if ((curTime - updateTime) > 5) then
       updateTime = curTime;
-      STDERR.puts("sdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - #{(100.0*tIdx/sampleCount).to_i}% complete")
+      STDERR.puts("raw2csv_sds: #{Time.new.inspect.ljust(35, ' ')} - #{(100.0*tIdx/sampleCount).to_i}% complete")
     end
   end
   outFileD.puts(([ tVal ] + vData.map { |x| x[tIdx] }).join(outSep))
@@ -325,5 +325,5 @@ end
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------
 if verbose >= 3 then
-  STDERR.puts("sdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - Finished")
+  STDERR.puts("raw2csv_sds: #{Time.new.inspect.ljust(35, ' ')} - Finished")
 end

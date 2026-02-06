@@ -2,7 +2,7 @@
 # -*- Mode:ruby; Coding:us-ascii; fill-column:158 -*-
 #########################################################################################################################################################.H.S.##
 ##
-# @file      tdsRAW2CSV.rb
+# @file      raw2csv_tds.rb
 # @author    Mitch Richling http://www.mitchr.me/
 # @brief     Convert RAW preamble & waveform data from Tektronix TDS 2000 & 3000B series oscilloscopes into a CSV files.@EOL
 # @std       Ruby_3
@@ -55,7 +55,7 @@ opts = OptionParser.new do |opts|
   opts.banner = ""
   opts.separator("Transform Tektronix waveform data into CSV                ")
   opts.separator("                                                          ")
-  opts.separator("Usage: sdsRAW2CSV.rb [options] -p preamble_file data_file ")
+  opts.separator("Usage: raw2csv_sds.rb [options] -p preamble_file data_file ")
   opts.separator("                                                          ")
   opts.separator(" Input Files:                                             ")
   opts.separator("    preamble_file .. The resuls of a :WFMPRe? call.       ")
@@ -80,13 +80,13 @@ end
 opts.parse!(ARGV)
 
 if ( !(outFileN)) then
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): Must provide an output file!\n\n")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): Must provide an output file!\n\n")
   STDERR.puts(opts)
   exit
 end
 
 if ( !(preFileN)) then
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): Must provide a preamble file!\n\n")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): Must provide a preamble file!\n\n")
   STDERR.puts(opts)
   exit
 end
@@ -100,11 +100,11 @@ end
 
 dataFileName = nil
 if (ARGV.length < 1) then
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): Must provide a waveform data file!\n\n")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): Must provide a waveform data file!\n\n")
   STDERR.puts(opts)
   exit
 elsif (ARGV.length > 1) then
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): May provide only one waveform data file!\n\n")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): May provide only one waveform data file!\n\n")
   STDERR.puts(opts)
   exit
 else
@@ -112,17 +112,17 @@ else
 end
 
 if verbose >= 5 then  
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): outTitle ....... #{outTitle.inspect     }")
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): outSep ......... #{outSep.inspect       }")
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): verbose ........ #{verbose.inspect      }")
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): outFileN ....... #{outFileN.inspect     }")
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): preFileN ....... #{preFileN.inspect     }")
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): dataFileName ... #{dataFileName.inspect }")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): outTitle ....... #{outTitle.inspect     }")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): outSep ......... #{outSep.inspect       }")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): verbose ........ #{verbose.inspect      }")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): outFileN ....... #{outFileN.inspect     }")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): preFileN ....... #{preFileN.inspect     }")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): dataFileName ... #{dataFileName.inspect }")
 end
  
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------
 if verbose >= 3 then
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Read, Parse, & Extract preamble data")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Read, Parse, & Extract preamble data")
 end
 
 preamble_data_hash  = ['BYT_Nr', 'BIT_Nr', 'ENCdg', 'BN_Fmt', 
@@ -133,13 +133,13 @@ preamble_data_hash  = ['BYT_Nr', 'BIT_Nr', 'ENCdg', 'BN_Fmt',
 # Report on preamble data
 if verbose >= 7 then  
   ['BN_Fmt', 'BYT_Nr', 'BYT_Or', 'ENCdg', 'PT_FMT', 'PT_Off', 'XINcr', 'XZERo', 'YMUlt', 'YOFf', 'YZERo'].each do |k|
-    STDERR.printf("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(7): %9s : %s\n", k, preamble_data_hash[k])
+    STDERR.printf("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - INFO(7): %9s : %s\n", k, preamble_data_hash[k])
   end
 end
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------
 if verbose >= 3 then
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Reading and converting Y data")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Reading and converting Y data")
 end
 yDataPts = nil
 if (preamble_data_hash['ENCdg'] == 'BIN') then
@@ -174,12 +174,12 @@ else
 end
 
 if verbose >= 3 then
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Found #{yDataPts.length} points")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Found #{yDataPts.length} points")
 end
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------
 if verbose >= 3 then
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Printing Data")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Printing Data")
 end
 
 if outTitle then
@@ -208,6 +208,6 @@ end
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------
 if verbose >= 3 then
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Total runtime: #{Time.new - processStartTime}")
-  STDERR.puts("tdsRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Finished")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Total runtime: #{Time.new - processStartTime}")
+  STDERR.puts("raw2csv_tds: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Finished")
 end

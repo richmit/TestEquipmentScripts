@@ -199,8 +199,8 @@ end
 # ./getwave_sig2k.rb -c C1 -e 1 -s 1 -p test1
 # # Done with: chunkSize = 10000000
 # ./getwave_sig2k.rb -c C1 -e 1 -s 1 -p test2
-# ../sdsRAW2CSV.rb -p test2_C1_*.pre -o test2.csv test2_C1*.dat
-# ../sdsRAW2CSV.rb -p test1_C1_*.pre -o test1.csv test1_C1*.dat
+# ../raw2csv_sds.rb -p test2_C1_*.pre -o test2.csv test2_C1*.dat
+# ../raw2csv_sds.rb -p test1_C1_*.pre -o test1.csv test1_C1*.dat
 #
 # # In octave or matlab graph the diffrence between the two as well as each waveform.  Should get a flat line at zero for the diffrnece.  Shoudl get what
 # # looks like one curve for the weveform, and it shoudl look like what was on the scope screen.
@@ -220,7 +220,7 @@ end
 # # In a shell.  Probably want to set the scope so only a few points are in each frame (<1000)
 # rm test5*
 # ./getwave_sig2k.rb -c C1 -e 500 -s 1 -p test3
-# ../sdsRAW2CSV.rb -p test3_C1_*.pre -o test3.csv test3_C1*.dat
+# ../raw2csv_sds.rb -p test3_C1_*.pre -o test3.csv test3_C1*.dat
 #
 # # In octave or matlab graph the 
 # figure()

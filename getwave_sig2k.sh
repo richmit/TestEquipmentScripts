@@ -78,7 +78,7 @@ mrSCPI.rb --url @sig2k                                                          
 
 if [ -s ${FPFX}_${CHAN}_waveform.pre -a -s ${FPFX}_${CHAN}_waveform.dat ]; then
   echo "getwave_sig2k.sh: Converting scope data to CSV"
-  sdsRAW2CSV.rb -n 0 ${FPFX}_${CHAN}_waveform.pre ${FPFX}_${CHAN}_waveform.dat -o ${FPFX}_${CHAN}_waveform.csv
+  raw2csv_sds.rb -n 0 ${FPFX}_${CHAN}_waveform.pre ${FPFX}_${CHAN}_waveform.dat -o ${FPFX}_${CHAN}_waveform.csv
 
   echo "getwave_sig2k.sh: Plotting CSV"
   printf "set tics nomirror\nset tics out\nunset key\nset xzeroaxis\nset yzeroaxis\nset term dumb\nset datafile separator ','\nplot '${FPFX}_${CHAN}_waveform.csv' using 1:2 with points\n" >  ${FPFX}_${CHAN}_waveform.gplt

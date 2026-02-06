@@ -6,7 +6,7 @@ Here you will find a collection of scripts I use with the equipment on [[https:/
 
 Many of these scripts use [[https://richmit.github.io/mrSCPI/][mrSCPI]].
 
- - =dhoRAW2CSV.rb=, =sdsRAW2CSV.rb=, =tdsRAW2CSV.rb= ::
+ - =raw2csv_dho.rb=, =raw2csv_sds.rb=, =raw2csv_tds.rb= ::
    Convert Oscilloscope raw waveform data into CSV.  Supported scopes:
    - Rigol DHO2000/4000 series
    - Siglent SDS2000X+ series scopes

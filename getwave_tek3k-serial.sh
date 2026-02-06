@@ -76,10 +76,16 @@ mrSCPI.rb --url @tek3ks                                                         
           --out_file "${FPFX}_${CHAN}_waveform.dat"                                                \
           --cmd 'CURVe?'
 
-tdsRAW2CSV.rb ${FPFX}_${CHAN}_waveform.pre ${FPFX}_${CHAN}_waveform.dat > ${FPFX}_${CHAN}_waveform.csv
+if [ -s ${FPFX}_${CHAN}_waveform.pre -a -s ${FPFX}_${CHAN}_waveform.dat ]; then
 
-echo "Plotting CSV"
-printf "set tics nomirror\nset tics out\nunset key\nset xzeroaxis\nset yzeroaxis\nset term dumb\nset datafile separator ','\nplot '${FPFX}_${CHAN}_waveform.csv' using 1:2 with points\n" >  ${FPFX}_${CHAN}_waveform.gplt
-gnuplot -c  ${FPFX}_${CHAN}_waveform.gplt
+  echo "getwave_tek3k.sh: Converting raw scope data to CSV"
+  raw2csv_tds.rb ${FPFX}_${CHAN}_waveform.pre ${FPFX}_${CHAN}_waveform.dat > ${FPFX}_${CHAN}_waveform.csv
 
-echo "Waveform saved in ${FPFX}_${CHAN}_waveform.csv"
+  echo "Plotting CSV"
+  printf "set tics nomirror\nset tics out\nunset key\nset xzeroaxis\nset yzeroaxis\nset term dumb\nset datafile separator ','\nplot '${FPFX}_${CHAN}_waveform.csv' using 1:2 with points\n" >  ${FPFX}_${CHAN}_waveform.gplt
+  gnuplot -c  ${FPFX}_${CHAN}_waveform.gplt
+
+  echo "Waveform saved in ${FPFX}_${CHAN}_waveform.csv"
+else
+  echo "getwave_tek3k.sh:: Failed to capture waveform"
+fi

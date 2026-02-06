@@ -2,7 +2,7 @@
 # -*- Mode:ruby; Coding:us-ascii; fill-column:158 -*-
 #########################################################################################################################################################.H.S.##
 ##
-# @file      dhoRAW2CSV.rb
+# @file      raw2csv_dho.rb
 # @author    Mitch Richling http://www.mitchr.me/
 # @brief     Convert RAW preamble & waveform data from Rigol DHO2000/4000 series oscilloscopes into a CSV files.@EOL
 # @std       Ruby 3
@@ -55,7 +55,7 @@ opts = OptionParser.new do |opts|
   opts.banner = ""
   opts.separator("Transform Rigol DHO2000/4000 waveform data into CSV                  ")
   opts.separator("                                                                     ")
-  opts.separator("Usage: sdsRAW2CSV.rb [options] waveform_data_file                    ")
+  opts.separator("Usage: raw2csv_sds.rb [options] waveform_data_file                    ")
   opts.separator("                                                                     ")
   opts.separator("  Options:                                                           ")
   opts.on("-h",      "--help",          "Show this message                             ")  { STDERR.puts(opts); exit                }
@@ -85,13 +85,13 @@ end
 opts.parse!(ARGV)
 
 if ( !(outFileN)) then
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): Must provide an output file!\n\n")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): Must provide an output file!\n\n")
   STDERR.puts(opts)
   exit
 end
 
 if ( !(preFileN)) then
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): Must provide a preamble file!\n\n")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): Must provide a preamble file!\n\n")
   STDERR.puts(opts)
   exit
 end
@@ -105,11 +105,11 @@ end
 
 dataFileName = nil
 if (ARGV.length < 1) then
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): Must provide a waveform data file!\n\n")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): Must provide a waveform data file!\n\n")
   STDERR.puts(opts)
   exit
 elsif (ARGV.length > 1) then
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): May provide only one waveform data file!\n\n")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): May provide only one waveform data file!\n\n")
   STDERR.puts(opts)
   exit
 else
@@ -117,18 +117,18 @@ else
 end
 
 if verbose >= 5 then  
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): outTime ........ #{outTime.inspect      }")
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): outTitle ....... #{outTitle.inspect     }")
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): outSep ......... #{outSep.inspect       }")
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): verbose ........ #{verbose.inspect      }")
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): outFileN ....... #{outFileN.inspect     }")
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): preFileN ....... #{preFileN.inspect     }")
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): dataFileName ... #{dataFileName.inspect }")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): outTime ........ #{outTime.inspect      }")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): outTitle ....... #{outTitle.inspect     }")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): outSep ......... #{outSep.inspect       }")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): verbose ........ #{verbose.inspect      }")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): outFileN ....... #{outFileN.inspect     }")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): preFileN ....... #{preFileN.inspect     }")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(5): dataFileName ... #{dataFileName.inspect }")
 end
  
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------
 if verbose >= 3 then
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Read, Parse, & Extract preamble data")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Read, Parse, & Extract preamble data")
 end
 
 preamble_data_hash  = ['FORMat', 'MODE', 'POINts', 'AVGcount', 
@@ -149,17 +149,17 @@ predYREFerence = preamble_data_hash['YREFerence'].to_f;
 # Report on preamble data
 if verbose >= 7 then  
   ['FORMat', 'MODE', 'POINts', 'AVGcount', 'XINCrement', 'XORigin', 'XREFerence', 'YINCrement', 'YORigin', 'YREFerence'].each do |k|
-    STDERR.printf("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(7): %11s : %s\n", k, preamble_data_hash[k])
+    STDERR.printf("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(7): %11s : %s\n", k, preamble_data_hash[k])
   end
 end
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------
 if verbose >= 3 then
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Reading Y data")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Reading Y data")
 end
 tmp = File.read(dataFileName, :encoding=>'binary')
 if verbose >= 3 then
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Converting Y data & printing results")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Converting Y data & printing results")
 end
 
 if outTitle then
@@ -174,12 +174,12 @@ if (predFORMat != 2) then
   # HEX digit indicating the number of digits that follow.  The remaining characters are ASCII DECIMAL digits indicating the number of bytes that follow.  
   datPfxLen = tmp[1].to_i(16) + 2;
   if verbose >= 7 then
-    STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(7): Binary prefix length: #{datPfxLen.inspect}")
+    STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(7): Binary prefix length: #{datPfxLen.inspect}")
   end
 
   pfxDat = tmp.slice!(0, datPfxLen)
   if verbose >= 7 then
-    STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(7): Binary prefix: #{pfxDat.inspect}")
+    STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(7): Binary prefix: #{pfxDat.inspect}")
   end
 
   wave_unpack_code = nil;
@@ -189,7 +189,7 @@ if (predFORMat != 2) then
     wave_unpack_code = 'S<*' # 2 byte, Unsigned, little-endian
   else
     if verbose >= 1 then
-      STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): Unrecognized FORMat: #{predFORMat.inspect}")
+      STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - ERROR(1): Unrecognized FORMat: #{predFORMat.inspect}")
     end
     exit
   end
@@ -203,11 +203,11 @@ if (predFORMat != 2) then
     end
   end
   if (verbose >= 3) then
-    STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Estimated output file size: #{'%0.1f' % estOutSizeValue} #{estOutSizeUnits} ")
+    STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Estimated output file size: #{'%0.1f' % estOutSizeValue} #{estOutSizeUnits} ")
   end
   if (verbose >= 2) then
     if (estOutSizeUnits == 'GB') then
-      STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - WARNING(2): WARNING! LARGE OUTPUT FILE! WARNING!")
+      STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - WARNING(2): WARNING! LARGE OUTPUT FILE! WARNING!")
     end
   end
 
@@ -228,11 +228,11 @@ if (predFORMat != 2) then
       pIdx += 1
     end
     if (verbose >= 3) then
-      STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): #{(100.0-100.0*tmp.length/numBytesToProcess).to_i}% complete")
+      STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): #{(100.0-100.0*tmp.length/numBytesToProcess).to_i}% complete")
     end
   end while ( !(tmp.empty?))
   if verbose >= 7 then
-    STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(7): Number of points in output: #{pIdx}")
+    STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(7): Number of points in output: #{pIdx}")
   end
 else
   pIdx = 0
@@ -250,6 +250,6 @@ end
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------
 if verbose >= 3 then
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Total runtime: #{Time.new - processStartTime}")
-  STDERR.puts("dhoRAW2CSV: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Finished")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Total runtime: #{Time.new - processStartTime}")
+  STDERR.puts("raw2csv_dho: #{Time.new.inspect.ljust(35, ' ')} - INFO(3): Finished")
 end
