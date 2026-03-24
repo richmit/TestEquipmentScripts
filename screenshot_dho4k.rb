@@ -39,11 +39,11 @@ end
 require ENV['PATH'].split(File::PATH_SEPARATOR).map {|x| File.join(x, 'mrSCPI.rb')}.find {|x| FileTest.exist?(x)}
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------
-imgFileName = "#{Time.now.localtime.strftime('%Y%m%d%H%M%S')}_DHO.png"
-theSPCIsession = SCPIsession.new(:url                => '@dho4k',
-                                 :result_macro_block => true,
-                                 :print_result       => true,
-                                 :out_file           => imgFileName,
-                                 :cmd                => ':DISPlay:DATA? PNG'
+imgFileName = "#{Time.now.localtime.strftime('%Y%m%d%H%M%S')}_DHO.png"            # Filename for PNG
+theSPCIsession = SCPIsession.new(:url                => '@dho4k',                 # A "nickname" for my scope's IP address
+                                 :result_macro_block => true,                     # Expect/Extract a block
+                                 :print_result       => true,                     # Print the block
+                                 :out_file           => imgFileName,              #   into a filename
+                                 :cmd                => ':DISPlay:DATA? PNG'      # The command to send
                                 )
 puts("screenshot_dho4k.rb: Screen image captured to: #{imgFileName}")
