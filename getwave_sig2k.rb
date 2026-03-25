@@ -49,6 +49,11 @@ chanRe       = /C[1-4]|F[12]|D0[1-9]|D1[0-5]/;
 opts = OptionParser.new do |opts|
   opts.banner = "Usage: getwave_sig2k.rb <options>"
   opts.separator "                                                     "
+  opts.separator " Works on Siglent SDS2000X+ series  scopes.          "
+  opts.separator "                                                     "
+  opts.separator " Pull waveform(s) from the given channel(s)/fram(s)  "
+  opts.separator " and save the raw output to file(s).                 "
+  opts.separator "                                                     "
   opts.separator "Options:                                             "
   opts.on("-h",       "--help",            "Show this message")        { puts opts; exit                }
   opts.on("-v NUM",   "--verbose NUM",     "Verbose level")            { |v| verbLvl = v.to_i;          }
@@ -80,10 +85,6 @@ opts = OptionParser.new do |opts|
   opts.separator "              The leading 11 characters are X's if   "
   opts.separator "              the file results from concatenating    "
   opts.separator "              multiple :WAVeform:DATA? calls.        "
-  opts.separator "                                                     "
-  opts.separator " Note: Unlike my other getwave_* scripts, this one   "
-  opts.separator "       doesn't automatically produce a .csv file     "
-  opts.separator "       or plot the results.                          "
 end
 opts.parse!(ARGV)
 

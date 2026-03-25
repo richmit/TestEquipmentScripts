@@ -6,7 +6,7 @@
 # @author    Mitch Richling http://www.mitchr.me/
 # @brief     Pull a waveform from a Tektronix TDS3000 series oscilloscope.@EOL
 # @std       sh mrSCPI
-# @deps      mrSCPI gnuplot ruby env(1) sh(1) printf(1)
+# @deps      mrSCPI gnuplot ruby
 # @copyright 
 #  @parblock
 #  Copyright (c) 2023, Mitchell Jay Richling <http://www.mitchr.me/> All rights reserved.

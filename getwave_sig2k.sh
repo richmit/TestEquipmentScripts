@@ -51,9 +51,9 @@ if [ "$1" = "-h" -o "$1" = "--help" -o "$1" = "-help" ]; then
   echo "Default channel is C1.  Default prefix is a time/date string         "
   echo "                                                                     "
   echo "WARNING: This script will pull at most 10,000,000 points for a single"
-  echo "waveform.  Therefore if you want is on the screen, lower the         "
+  echo "waveform.  Therefore if what you want is on the screen, lower the    "
   echo "scope's memory depth to below 10M points per waveform.  The Ruby     "
-  echo "script with the same name handles longer waveforms and pulling data  "
+  echo "script getwave_sig2k.rb handles longer waveforms and pulling data    "
   echo "from waveform history.                                               "
   echo "                                                                     "
   exit 1

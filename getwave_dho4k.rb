@@ -44,6 +44,11 @@ chanRe   = /CHAN[nelNEL]*[1-4]|MATH[1-4]/;
 opts = OptionParser.new do |opts|
   opts.banner = "Usage: getwave_dho4k.rb <options>"
   opts.separator "                                                     "
+  opts.separator " Works on Rigol DHO2000/DHO4000 series scopes.       "
+  opts.separator "                                                     "
+  opts.separator " Pull waveform(s) from the given channel(s) and save "
+  opts.separator " the raw output to file(s).                          "
+  opts.separator "                                                     "
   opts.separator "Options:                                             "
   opts.on("-h",       "--help",            "Show this message")        { puts opts; exit                }
   opts.on("-v NUM",   "--verbose NUM",     "Verbose level")            { |v| verbLvl = v.to_i;          }

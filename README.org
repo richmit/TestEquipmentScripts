@@ -17,10 +17,12 @@ Many of these scripts use [[https://richmit.github.io/mrSCPI/][mrSCPI]].
    Grab Oscilloscope screenshots.  Supported scopes:
    - Rigol DHO2000/4000 series
    - Siglent SDS2000X+ series scopes
-   - Tektronix TDS 2000 & 3000B series scopes
+   - Tektronix 3000B series scopes
    - Digilent Analog Discovery (all models).
- - =getwave_dho4k.rb=, =getwave_sig2k.rb=, =getwave_sig2k.sh=, =getwave_tek2k.sh=, =getwave_tek3k-serial.sh=, =getwave_tek3k.sh= ::
+ - =getwave_dho4k.rb=, =getwave_sig2k.sh=, =getwave_tek2k.sh=, =getwave_tek3k-serial.sh=, =getwave_tek3k.sh= ::
    Pull waveform data from Oscilloscopes.  Supported scopes:
    - Rigol DHO2000/4000 series
    - Siglent SDS2000X+ series scopes
    - Tektronix TDS 2000 & 3000B series scopes
+ - =getwave_sig2k.rb= ::
+   Pull one or more frames/segments of waveform data from Siglent SDS2000X+ series scopes.
