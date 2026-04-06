@@ -51,7 +51,7 @@ opts = OptionParser.new do |opts|
   opts.separator "                                                     "
   opts.separator " Works on Siglent SDS2000X+ series  scopes.          "
   opts.separator "                                                     "
-  opts.separator " Pull waveform(s) from the given channel(s)/fram(s)  "
+  opts.separator " Pull waveform(s) from the given channel(s)/frame(s) "
   opts.separator " and save the raw output to file(s).                 "
   opts.separator "                                                     "
   opts.separator "Options:                                             "
